@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 5eeed000bc300b1468e515cb6e00e3f4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 9801397f829a1ed42984340315cbf362, type: 3}
+  iesMetaData:
+    FileFormatVersion: LM-63-2002
+    IESPhotometricType: Type C
+    IESMaximumIntensity: 1800
+    IESMaximumIntensityUnit: Lumens
+    Manufacturer: HELLUX
+    LuminaireCatalogNumber: LMF 401-10/2x11W-TC-L 401P1
+    LuminaireDescription: LMF 401-10/2x11W-TC-L 401P1
+    LampCatalogNumber: TC-L 11W
+    LampDescription: TC-L 11W
+    PrefabLightType: 0
+    SpotAngle: 120
+    iesSize: 128
+    ApplyLightAttenuation: 1
+    UseIESMaximumIntensity: 1
+    CookieCompression: 2
+    LightAimAxisRotation: -90

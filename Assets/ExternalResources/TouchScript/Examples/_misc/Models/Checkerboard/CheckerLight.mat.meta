@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c7ee63cfba2ae4963a15013267a4e9f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 7394
+  packageName: TouchScript
+  packageVersion: 9.0
+  assetPath: Assets/TouchScript/Examples/_misc/Models/Checkerboard/CheckerLight.mat
+  uploadId: 192833

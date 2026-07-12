@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 148079725ce574b75ae65e81f6be1567
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 7394
+  packageName: TouchScript
+  packageVersion: 9.0
+  assetPath: Assets/TouchScript/Examples/_misc/Textures/Planets/planet_3.mat
+  uploadId: 192833

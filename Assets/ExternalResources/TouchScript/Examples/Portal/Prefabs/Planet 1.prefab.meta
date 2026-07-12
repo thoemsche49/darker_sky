@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7c0291284cacbcf4d93907ef9bfae4b9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 7394
+  packageName: TouchScript
+  packageVersion: 9.0
+  assetPath: Assets/TouchScript/Examples/Portal/Prefabs/Planet 1.prefab
+  uploadId: 192833
