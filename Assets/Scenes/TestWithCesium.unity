@@ -188,6 +188,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1185439862}
+  - {fileID: 1241366801}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &759905764
@@ -204,7 +205,7 @@ GameObject:
   - component: {fileID: 759905766}
   - component: {fileID: 759905765}
   m_Layer: 5
-  m_Name: MapTouchPanel
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -745,6 +746,80 @@ MonoBehaviour:
   _updateInEditor: 1
   _logSelectionStats: 0
   _createPhysicsMeshes: 1
+--- !u!1 &1241366800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241366801}
+  - component: {fileID: 1241366802}
+  m_Layer: 0
+  m_Name: Cesium World Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1241366801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241366800}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -10000, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 159063593}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1241366802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241366800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844ac86b07dcfa3468f56da55d787510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CesiumForUnity::CesiumForUnity.Cesium3DTileset
+  _showCreditsOnScreen: 0
+  _tilesetSource: 0
+  _url: 
+  _ionAssetID: 1
+  _ionAccessToken: 
+  _ionServer: {fileID: 11400000, guid: c12b20c36080f2e4da899e716dbd485a, type: 2}
+  _maximumScreenSpaceError: 16
+  _preloadAncestors: 1
+  _preloadSiblings: 1
+  _forbidHoles: 0
+  _maximumSimultaneousTileLoads: 20
+  _maximumCachedBytes: 536870912
+  _loadingDescendantLimit: 20
+  _enableFrustumCulling: 1
+  _enableFogCulling: 1
+  _enforceCulledScreenSpaceError: 1
+  _culledScreenSpaceError: 64
+  _opaqueMaterial: {fileID: 0}
+  _generateSmoothNormals: 0
+  _ignoreKhrMaterialsUnlit: 0
+  _pointCloudShading:
+    _attenuation: 0
+    _geometricErrorScale: 1
+    _maximumAttenuation: 0
+    _baseResolution: 0
+  _suspendUpdate: 0
+  _showTilesInHierarchy: 0
+  _updateInEditor: 1
+  _logSelectionStats: 0
+  _createPhysicsMeshes: 1
 --- !u!1001 &1550318291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -799,6 +874,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 1c4dd8a13f501b04f84fe824120f70bb, type: 3}
       propertyPath: shouldCreateCameraLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11478012, guid: 1c4dd8a13f501b04f84fe824120f70bb, type: 3}
+      propertyPath: emulateSecondMousePointer
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -898,6 +977,7 @@ GameObject:
   - component: {fileID: 1914932759}
   - component: {fileID: 1914932762}
   - component: {fileID: 1914932763}
+  - component: {fileID: 1914932764}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1130,8 +1210,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc94c5187cab44f62a9104fe472be798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Area4PanController
-  OneFingerPanGesture: {fileID: 759905765}
+  OneFingerPanGesture: {fileID: 2074608697}
   PanSpeed: 0.5
+--- !u!114 &1914932764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914932758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a98603f9bf7746deaea1246663ee019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotateController
+  RotateGesture: {fileID: 2074608697}
 --- !u!1 &2074608693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,8 +1236,10 @@ GameObject:
   - component: {fileID: 2074608694}
   - component: {fileID: 2074608696}
   - component: {fileID: 2074608695}
+  - component: {fileID: 2074608697}
+  - component: {fileID: 2074608698}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: MapTouchPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1157,7 +1252,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074608693}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1207,6 +1302,88 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074608693}
   m_CullTransparentMesh: 1
+--- !u!114 &2074608697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074608693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
+  debugMode: 0
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  basicEditor: 0
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 1
+  maxPointers: 1
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures: []
+  OnTransformStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransform:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransformComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  type: 1
+  screenTransformThreshold: 0.1
+  minScreenPointsDistance: 0.5
+--- !u!114 &2074608698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074608693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
+  debugMode: 0
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  basicEditor: 0
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 2
+  maxPointers: 2
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures: []
+  OnTransformStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransform:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransformComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  type: 2
+  screenTransformThreshold: 0.1
+  minScreenPointsDistance: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
