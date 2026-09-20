@@ -1247,7 +1247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a98603f9bf7746deaea1246663ee019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateController
-  RotateGesture: {fileID: 2074608697}
+  RotateGesture: {fileID: 2074608698}
+  GroundLevel: 0
 --- !u!1 &2074608693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,7 +1354,8 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 2074608698}
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1394,7 +1396,8 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 2074608697}
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []

@@ -31,12 +31,20 @@ public class PanController : MonoBehaviour
     {
         Vector2 delta = OneFingerPanGesture.DeltaPosition;
 
-        Vector3 movement = new Vector3(
-            -delta.x * PanSpeed,
-            0f,
-            -delta.y * PanSpeed
-        );
+        // Pan in Kamera-Ausrichtung: Die Karte folgt der Fingerbewegung -
+        // auch nach einer Rotation der Kamera (rechts = Bildrechts,
+        // oben = Bildoberkante).
+        Vector3 right = transform.right;
+        right.y = 0f;
+        right.Normalize();
 
+        Vector3 screenUp = transform.up;
+        screenUp.y = 0f;
+        if (screenUp.sqrMagnitude < 0.0001f)
+            screenUp = -transform.forward;
+        screenUp.Normalize();
+
+        Vector3 movement = (-delta.x * right - delta.y * screenUp) * PanSpeed;
         transform.position += movement;
 
         // Kamera bleibt immer auf derselben Höhe
