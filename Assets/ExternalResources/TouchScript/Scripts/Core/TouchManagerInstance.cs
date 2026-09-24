@@ -625,8 +625,13 @@ namespace TouchScript.Core
 
         private void updateInputs()
         {
+            if (samplerUpdateInputs == null) return;
             samplerUpdateInputs.Begin();
-            for (var i = 0; i < inputCount; i++) inputs[i].UpdateInput();
+            for (var i = 0; i < inputCount; i++)
+            {
+                if (inputs[i] == null) continue;
+                inputs[i].UpdateInput();
+            }
             samplerUpdateInputs.End();
         }
 
