@@ -170,9 +170,9 @@ MonoBehaviour:
   _latitude: 53.55
   _longitude: 9.99
   _height: 0
-  _ecefX: 3740039.633671912
-  _ecefY: 658796.8618872479
-  _ecefZ: 5107145.578711638
+  _ecefX: 3740039.6336719124
+  _ecefY: 658796.861887248
+  _ecefZ: 5107145.578711639
   _scale: 1
 --- !u!4 &159063593
 Transform:
@@ -1635,9 +1635,7 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures:
-  - {fileID: 2074608698}
-  - {fileID: 2074608699}
+  friendlyGestures: []
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1678,9 +1676,7 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures:
-  - {fileID: 2074608697}
-  - {fileID: 2074608699}
+  friendlyGestures: []
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1721,9 +1717,7 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures:
-  - {fileID: 2074608697}
-  - {fileID: 2074608698}
+  friendlyGestures: []
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
