@@ -36,7 +36,7 @@ public class RotateController : MonoBehaviour
 
     private void OnTransformed(object sender, System.EventArgs e)
     {
-        float angle = -RotateGesture.DeltaRotation;
+        float angle = RotateGesture.DeltaRotation;
 
         // Pivot: Punkt der Kartenebene direkt unter der Bildschirmmitte.
         // Die Kamera kreist um diesen Punkt (Orbit) und schaut ihn dabei die

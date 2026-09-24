@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &239930490
 Transform:
   m_ObjectHideFlags: 0
@@ -1493,8 +1493,8 @@ MonoBehaviour:
   generalProps: 0
   limitsProps: 0
   advancedProps: 0
-  minPointers: 2
-  maxPointers: 2
+  minPointers: 3
+  maxPointers: 3
   useSendMessage: 0
   sendStateChangeMessages: 0
   sendMessageTarget: {fileID: 0}
