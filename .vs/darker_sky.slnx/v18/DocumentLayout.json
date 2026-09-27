@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\ASaAI Projekt\\darker_sky\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\asaai projekt\\darker_sky\\assets\\scripts\\maptoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\maptoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MapToggle.cs",
+              "DocumentMoniker": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\MapToggle.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MapToggle.cs",
+              "ToolTip": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\MapToggle.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MapToggle.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAADwvzsAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T14:03:13.579Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
