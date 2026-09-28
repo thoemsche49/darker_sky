@@ -1,15 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class MapController : MonoBehaviour
 {
     [Header("Light Pollution Maps")]
-    public GameObject map1;
-    public GameObject map2;
-    public GameObject map3;
-    public GameObject map4;
-    public GameObject map5;
+    public GameObject map1;  // 25
+    public GameObject map2;  // 50
+    public GameObject map3;  // 75
+    public GameObject map4;  // 100
+    public GameObject map5;  // 200
 
     [Header("Positionen")]
     public float sichtbarY = 60f;
@@ -17,13 +18,17 @@ public class MapController : MonoBehaviour
 
     [Header("Kamera Einstellungen")]
     public Camera mainCamera;
-    public float zoomHoehe = 8000f;
+    public float zoomHoehe = 25000f;
     public float zoomDauer = 2f;
 
     [Header("UI")]
-    public Button zurueckButton;  // Zurück Button hier reinziehen
+    public Button mapButton;
+    public Button zurueckButton;
+    public Slider mapSlider;
+    public TextMeshProUGUI sliderLabel;
 
-    private int aktiveMap = -1;
+    // Strahlendichte Werte
+    private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
     private GameObject[] maps;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -41,38 +46,32 @@ public class MapController : MonoBehaviour
         originalPosition = mainCamera.transform.position;
         originalRotation = mainCamera.transform.rotation;
 
-        // Zurück Button am Anfang verstecken
+        // Zurück Button und Slider am Anfang verstecken
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(false);
+        if (mapSlider != null)
+            mapSlider.gameObject.SetActive(false);
+        if (sliderLabel != null)
+            sliderLabel.gameObject.SetActive(false);
+
+        // Slider Listener
+        if (mapSlider != null)
+            mapSlider.onValueChanged.AddListener(SliderGeaendert);
+
+        // Label initial setzen
+        AktualisierLabel(0);
     }
 
-    // Haupt Button - macht alles
+    // Haupt Button
     public void NaechsteMap()
     {
         if (istAnimiert) return;
 
         if (!istGezoomt)
         {
-            // Position JETZT speichern bevor gezoomt wird
             originalPosition = mainCamera.transform.position;
             originalRotation = mainCamera.transform.rotation;
-
             StartCoroutine(RausZoomenDannMap());
-        }
-        else
-        {
-            // Schon gezoomt → nächste Map
-            aktiveMap++;
-
-            if (aktiveMap >= maps.Length)
-            {
-                // Letzte Map war aktiv → zurückzoomen
-                StartCoroutine(ReinZoomenUndAusschalten());
-            }
-            else
-            {
-                MapAnzeigen(maps[aktiveMap]);
-            }
         }
     }
 
@@ -81,6 +80,22 @@ public class MapController : MonoBehaviour
     {
         if (istAnimiert) return;
         StartCoroutine(ReinZoomenUndAusschalten());
+    }
+
+    // Wird automatisch aufgerufen wenn Slider bewegt wird
+    void SliderGeaendert(float wert)
+    {
+        int index = Mathf.RoundToInt(wert);
+        AktualisierLabel(index);
+
+        if (istGezoomt)
+            MapAnzeigen(maps[index]);
+    }
+
+    void AktualisierLabel(int index)
+    {
+        if (sliderLabel != null)
+            sliderLabel.text = strahlenwerte[index] + " mcd/m²";
     }
 
     IEnumerator RausZoomenDannMap()
@@ -111,24 +126,37 @@ public class MapController : MonoBehaviour
         istGezoomt = true;
         istAnimiert = false;
 
-        // Zurück Button einblenden
+        // Slider + Label + Zurück Button einblenden
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(true);
+        if (mapSlider != null)
+            mapSlider.gameObject.SetActive(true);
+        if (sliderLabel != null)
+            sliderLabel.gameObject.SetActive(true);
+        // Map Button ausblenden
+        if (mapButton != null)
+            mapButton.gameObject.SetActive(false);
 
         // Erste Map anzeigen
-        aktiveMap = 0;
-        MapAnzeigen(maps[aktiveMap]);
+        mapSlider.value = 0;
+        MapAnzeigen(maps[0]);
     }
 
     IEnumerator ReinZoomenUndAusschalten()
     {
         istAnimiert = true;
         AlleAusschalten();
-        aktiveMap = -1;
 
-        // Zurück Button verstecken
+        // Slider + Label + Zurück Button verstecken
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(false);
+        if (mapSlider != null)
+            mapSlider.gameObject.SetActive(false);
+        if (sliderLabel != null)
+            sliderLabel.gameObject.SetActive(false);
+        // Map Button wieder einblenden
+        if (mapButton != null)
+            mapButton.gameObject.SetActive(true);
 
         float timer = 0f;
         Vector3 startPos = mainCamera.transform.position;
