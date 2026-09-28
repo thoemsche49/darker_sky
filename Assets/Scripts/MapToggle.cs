@@ -27,6 +27,9 @@ public class MapController : MonoBehaviour
     public Slider mapSlider;
     public TextMeshProUGUI sliderLabel;
     public GameObject legend; 
+    public Button infoButton;
+    public Button infoClose;
+    public GameObject infoText;
 
     // Strahlendichte Werte
     private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
@@ -61,6 +64,18 @@ public class MapController : MonoBehaviour
         // Slider Listener
         if (mapSlider != null)
             mapSlider.onValueChanged.AddListener(SliderGeaendert);
+        
+        // Info-Text und Schließen-Button am Anfang verstecken
+        if (infoText != null)
+            infoText.gameObject.SetActive(false);
+        if (infoClose != null)
+            infoClose.gameObject.SetActive(false);
+
+        // Button-Listener
+        if (infoButton != null)
+            infoButton.onClick.AddListener(InfoOeffnen);
+        if (infoClose != null)
+            infoClose.onClick.AddListener(InfoSchliessen);
 
         // Label initial setzen
         AktualisierLabel(0);
@@ -102,6 +117,22 @@ public class MapController : MonoBehaviour
     {
         if (sliderLabel != null)
             sliderLabel.text = strahlenwerte[index] + "";
+    }
+
+    public void InfoOeffnen()
+    {
+        if (infoText != null)
+            infoText.gameObject.SetActive(true);
+        if (infoClose != null)
+            infoClose.gameObject.SetActive(true);
+    }
+
+    public void InfoSchliessen()
+    {
+        if (infoText != null)
+            infoText.gameObject.SetActive(false);
+        if (infoClose != null)
+            infoClose.gameObject.SetActive(false);
     }
 
     IEnumerator RausZoomenDannMap()
