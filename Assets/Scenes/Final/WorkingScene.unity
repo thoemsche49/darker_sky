@@ -1384,6 +1384,7 @@ GameObject:
   - component: {fileID: 1023788733}
   - component: {fileID: 1023788732}
   - component: {fileID: 1023788734}
+  - component: {fileID: 1023788735}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1391,6 +1392,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1023788735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023788731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ae281e34594fd8b756da7209256c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
+  SecondsPerDay: 60
+  StartTimeOfDay: 0.25
+  MaxElevation: 90
+  NoonIntensity: 100000
+  NightIntensity: 50
+  NightColor: {r: 0.35, g: 0.45, b: 0.7, a: 1}
+  DawnColor: {r: 1, g: 0.55, b: 0.3, a: 1}
+  NoonColor: {r: 1, g: 0.96, b: 0.9, a: 1}
+  TimeScale: 1
 --- !u!108 &1023788732
 Light:
   m_ObjectHideFlags: 0
