@@ -95,7 +95,7 @@ public class MapController : MonoBehaviour
     void AktualisierLabel(int index)
     {
         if (sliderLabel != null)
-            sliderLabel.text = strahlenwerte[index] + " mcd/m²";
+            sliderLabel.text = strahlenwerte[index] + " nW/cm2/sr";
     }
 
     IEnumerator RausZoomenDannMap()
