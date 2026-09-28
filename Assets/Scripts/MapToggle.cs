@@ -26,6 +26,7 @@ public class MapController : MonoBehaviour
     public Button zurueckButton;
     public Slider mapSlider;
     public TextMeshProUGUI sliderLabel;
+    public GameObject legend; 
 
     // Strahlendichte Werte
     private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
@@ -126,13 +127,15 @@ public class MapController : MonoBehaviour
         istGezoomt = true;
         istAnimiert = false;
 
-        // Slider + Label + Zurück Button einblenden
+        // Slider + Label + Zurück Button + Legende einblenden
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(true);
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(true);
         if (sliderLabel != null)
             sliderLabel.gameObject.SetActive(true);
+        if (legend != null)
+            legend.gameObject.SetActive(true);
         // Map Button ausblenden
         if (mapButton != null)
             mapButton.gameObject.SetActive(false);
@@ -147,13 +150,15 @@ public class MapController : MonoBehaviour
         istAnimiert = true;
         AlleAusschalten();
 
-        // Slider + Label + Zurück Button verstecken
+        // Slider + Label + Zurück Button + Legende verstecken
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(false);
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(false);
         if (sliderLabel != null)
             sliderLabel.gameObject.SetActive(false);
+        if (legend != null)
+            legend.gameObject.SetActive(false);
         // Map Button wieder einblenden
         if (mapButton != null)
             mapButton.gameObject.SetActive(true);
