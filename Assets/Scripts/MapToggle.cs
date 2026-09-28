@@ -36,6 +36,9 @@ public class MapController : MonoBehaviour
     private bool istGezoomt = false;
     private bool istAnimiert = false;
 
+    // Wird beim Druecken der Karten-/Zuerueck-Tasten ausgeloest (true = Overlay offen)
+    public System.Action<bool> MapModeChanged;
+
     void Start()
     {
         maps = new GameObject[] { map1, map2, map3, map4, map5 };
@@ -70,6 +73,7 @@ public class MapController : MonoBehaviour
 
         if (!istGezoomt)
         {
+            MapModeChanged?.Invoke(true);
             originalPosition = mainCamera.transform.position;
             originalRotation = mainCamera.transform.rotation;
             StartCoroutine(RausZoomenDannMap());
@@ -80,6 +84,7 @@ public class MapController : MonoBehaviour
     public void ZurueckZoomen()
     {
         if (istAnimiert) return;
+        MapModeChanged?.Invoke(false);
         StartCoroutine(ReinZoomenUndAusschalten());
     }
 
