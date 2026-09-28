@@ -45,6 +45,13 @@ public class ZoomController : MonoBehaviour
             return;
         }
 
+        // Nur exakt 2 Finger sollen zoomen - bei 1, 3, 4 usw. wird abgebrochen
+        if (ZoomGesture.NumPointers != 2)
+        {
+            lastDistance = -1f;
+            return;
+        }
+
         var pointers = ZoomGesture.ActivePointers;
         float distance = Vector2.Distance(pointers[0].Position, pointers[1].Position);
 
