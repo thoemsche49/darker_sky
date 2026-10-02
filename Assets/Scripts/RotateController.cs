@@ -17,11 +17,8 @@ public class RotateController : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("RotateController gestartet");
-
         if (RotateGesture == null)
         {
-            Debug.LogError("RotateGesture fehlt");
             return;
         }
 

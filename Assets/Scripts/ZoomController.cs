@@ -20,21 +20,6 @@ public class ZoomController : MonoBehaviour
         cam = GetComponent<Camera>();
         if (cam == null)
             cam = Camera.main;
-
-        Debug.Log(
-            "ZoomController.Awake | Objekt: " +
-            gameObject.name +
-            " | Kamera: " +
-            (cam != null ? cam.gameObject.name : "FEHLT")
-        );
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log(
-            "ZoomController.OnEnable | ZoomGesture: " +
-            (ZoomGesture != null ? ZoomGesture.gameObject.name : "NULL")
-        );
     }
 
     private void Update()
@@ -83,15 +68,6 @@ public class ZoomController : MonoBehaviour
         if (zoomFactor < 0.01f)
             zoomFactor = 0.01f;
 
-        Debug.Log(
-            "ZoomController.Update | Abstand: " +
-            distance +
-            " | Verhaeltnis: " +
-            ratio +
-            " | Y vorher: " +
-            transform.position.y
-        );
-
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         Vector3 pivotBefore = GetGroundPoint(screenCenter);
 
@@ -101,8 +77,6 @@ public class ZoomController : MonoBehaviour
 
         Vector3 pivotAfter = GetGroundPoint(screenCenter);
         transform.position += pivotBefore - pivotAfter;
-
-        Debug.Log("ZoomController.Update | Y nachher: " + transform.position.y);
     }
 
     private Vector3 GetGroundPoint(Vector2 screenPos)
