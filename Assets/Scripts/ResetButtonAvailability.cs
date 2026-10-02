@@ -4,19 +4,19 @@ using UnityEngine.UI;
 public class ResetButtonAvailability : MonoBehaviour
 {
     [SerializeField] private Button resetButton;
-    [SerializeField] private Button blockingButton;
+    [SerializeField] private Button checkedButton;
 
     private void Update()
     {
-        if (resetButton == null || blockingButton == null)
+        if (resetButton == null)
             return;
 
-        bool blockingButtonIsActive =
-            blockingButton.gameObject.activeInHierarchy &&
-            blockingButton.enabled &&
-            blockingButton.interactable;
+        bool checkedButtonIsActive =
+            checkedButton != null &&
+            checkedButton.gameObject.activeInHierarchy &&
+            checkedButton.enabled &&
+            checkedButton.interactable;
 
-        resetButton.interactable =
-            !blockingButtonIsActive;
+        resetButton.interactable = checkedButtonIsActive;
     }
 }

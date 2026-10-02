@@ -139,6 +139,10 @@ public class MapController : MonoBehaviour
     {
         istAnimiert = true;
 
+        if (mapButton != null) {
+            mapButton.interactable = false;
+        }
+
         Vector3 zielPosition = new Vector3(
             mainCamera.transform.position.x,
             originalPosition.y + zoomHoehe,
@@ -166,6 +170,7 @@ public class MapController : MonoBehaviour
         // Slider + Label + Zurück Button + Legende einblenden
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(true);
+            zurueckButton.interactable = true;
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(true);
         if (sliderLabel != null)
@@ -186,18 +191,17 @@ public class MapController : MonoBehaviour
         istAnimiert = true;
         AlleAusschalten();
 
-        // Slider + Label + Zurück Button + Legende verstecken
-        if (zurueckButton != null)
-            zurueckButton.gameObject.SetActive(false);
+        if (zurueckButton != null) {
+            zurueckButton.interactable = false;
+        }
+        // Slider + Label + Legende verstecken
+
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(false);
         if (sliderLabel != null)
             sliderLabel.gameObject.SetActive(false);
         if (legend != null)
             legend.gameObject.SetActive(false);
-        // Map Button wieder einblenden
-        if (mapButton != null)
-            mapButton.gameObject.SetActive(true);
 
         float timer = 0f;
         Vector3 startPos = mainCamera.transform.position;
@@ -215,6 +219,15 @@ public class MapController : MonoBehaviour
 
         istGezoomt = false;
         istAnimiert = false;
+
+        if (zurueckButton != null)
+            zurueckButton.gameObject.SetActive(false);
+
+        if (mapButton != null)
+        {
+            mapButton.gameObject.SetActive(true);
+            mapButton.interactable = true;
+        }
     }
 
     void MapAnzeigen(GameObject map)

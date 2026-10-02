@@ -4705,7 +4705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetButtonAvailability
   resetButton: {fileID: 1505815901}
-  blockingButton: {fileID: 1750477209}
+  checkedButton: {fileID: 192353555}
 --- !u!1 &1960687090
 GameObject:
   m_ObjectHideFlags: 0
