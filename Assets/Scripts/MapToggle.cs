@@ -27,9 +27,15 @@ public class MapController : MonoBehaviour
     public Slider mapSlider;
     public TextMeshProUGUI sliderLabel;
     public GameObject legend; 
-    public Button infoButton;
-    public Button infoClose;
-    public GameObject infoText;
+    public Button creditsButton;
+    public Button creditsClose;
+    public GameObject creditsText;
+    public Button menuButton;
+    public Button quitButton;
+    public Button resetButton;
+    public Button steuerungButton;
+    public Button steuerungClose;
+    public GameObject steuerungText;
 
     // Strahlendichte Werte
     private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
@@ -65,20 +71,56 @@ public class MapController : MonoBehaviour
         if (mapSlider != null)
             mapSlider.onValueChanged.AddListener(SliderGeaendert);
         
-        // Info-Text und Schließen-Button am Anfang verstecken
-        if (infoText != null)
-            infoText.gameObject.SetActive(false);
-        if (infoClose != null)
-            infoClose.gameObject.SetActive(false);
+        // Credits-Text und Schließen-Button am Anfang verstecken
+        if (creditsText != null)
+            creditsText.gameObject.SetActive(false);
+        if (creditsClose != null)
+            creditsClose.gameObject.SetActive(false);
 
-        // Button-Listener
-        if (infoButton != null)
-            infoButton.onClick.AddListener(InfoOeffnen);
-        if (infoClose != null)
-            infoClose.onClick.AddListener(InfoSchliessen);
+        // Button-Listener Credits
+        if (creditsButton != null)
+            creditsButton.onClick.AddListener(CreditsOeffnen);
+        if (creditsClose != null)
+            creditsClose.onClick.AddListener(CreditsSchliessen);
+
+        // Steuerung-Text und Schließen-Button am Anfang verstecken
+        if (steuerungText != null)
+            steuerungText.gameObject.SetActive(false);
+        if (steuerungClose != null)
+            steuerungClose.gameObject.SetActive(false);
+
+        // Button-Listener Steuerung
+        if (steuerungButton != null)
+            steuerungButton.onClick.AddListener(SteuerungOeffnen);
+        if (steuerungClose != null)
+            steuerungClose.onClick.AddListener(SteuerungSchliessen);
 
         // Label initial setzen
         AktualisierLabel(0);
+
+        // Burger-Menü-Buttons am Anfang verstecken
+        if (creditsButton != null)
+            creditsButton.gameObject.SetActive(false);
+        if (quitButton != null)
+            quitButton.gameObject.SetActive(false);
+        if (resetButton != null)
+            resetButton.gameObject.SetActive(false);
+        if (steuerungButton != null)
+            steuerungButton.gameObject.SetActive(false);
+
+        // Burger-Button Listener
+        if (menuButton != null)
+            menuButton.onClick.AddListener(BurgerMenuToggle);
+
+        // Zusätzliche Listener: Menü schließen, wenn ein Punkt gewählt wird
+        if (creditsButton != null)
+            creditsButton.onClick.AddListener(BurgerMenuSchliessen);
+        if (quitButton != null)
+            quitButton.onClick.AddListener(BurgerMenuSchliessen);
+        if (resetButton != null)
+            resetButton.onClick.AddListener(BurgerMenuSchliessen);
+        if (steuerungButton != null)
+            steuerungButton.onClick.AddListener(BurgerMenuSchliessen);
     }
 
     // Haupt Button
@@ -119,20 +161,66 @@ public class MapController : MonoBehaviour
             sliderLabel.text = strahlenwerte[index] + "";
     }
 
-    public void InfoOeffnen()
+    public void CreditsOeffnen()
     {
-        if (infoText != null)
-            infoText.gameObject.SetActive(true);
-        if (infoClose != null)
-            infoClose.gameObject.SetActive(true);
+        if (creditsText != null)
+            creditsText.gameObject.SetActive(true);
+        if (creditsClose != null)
+            creditsClose.gameObject.SetActive(true);
     }
 
-    public void InfoSchliessen()
+    public void CreditsSchliessen()
     {
-        if (infoText != null)
-            infoText.gameObject.SetActive(false);
-        if (infoClose != null)
-            infoClose.gameObject.SetActive(false);
+        if (creditsText != null)
+            creditsText.gameObject.SetActive(false);
+        if (creditsClose != null)
+            creditsClose.gameObject.SetActive(false);
+    }
+
+    public void SteuerungOeffnen()
+    {
+        if (steuerungText != null)
+            steuerungText.gameObject.SetActive(true);
+        if (steuerungClose != null)
+            steuerungClose.gameObject.SetActive(true);
+    }
+
+    public void SteuerungSchliessen()
+    {
+        if (steuerungText != null)
+            steuerungText.gameObject.SetActive(false);
+        if (steuerungClose != null)
+            steuerungClose.gameObject.SetActive(false);
+    }
+
+    private bool istMenuOffen = false;
+
+    public void BurgerMenuToggle()
+    {
+        istMenuOffen = !istMenuOffen;
+
+        if (creditsButton != null)
+            creditsButton.gameObject.SetActive(istMenuOffen);
+        if (quitButton != null)
+            quitButton.gameObject.SetActive(istMenuOffen);
+        if (resetButton != null)
+            resetButton.gameObject.SetActive(istMenuOffen);
+        if (steuerungButton != null)
+            steuerungButton.gameObject.SetActive(istMenuOffen);
+    }
+
+    public void BurgerMenuSchliessen()
+    {
+        istMenuOffen = false;
+
+        if (creditsButton != null)
+            creditsButton.gameObject.SetActive(false);
+        if (quitButton != null)
+            quitButton.gameObject.SetActive(false);
+        if (resetButton != null)
+            resetButton.gameObject.SetActive(false);
+        if (steuerungButton != null)
+            steuerungButton.gameObject.SetActive(false);
     }
 
     IEnumerator RausZoomenDannMap()
