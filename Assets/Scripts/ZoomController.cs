@@ -9,6 +9,9 @@ public class ZoomController : MonoBehaviour
     public float MaxHeight = 5000f;
     public float GroundLevel = 0f;
 
+    // 1 = unverändert, 2 = doppelt so schnell, 0.5 = halb so schnell
+    public float ZoomSpeed = 0.5f;
+
     private Camera cam;
     private float lastDistance = -1f;
 
@@ -75,6 +78,11 @@ public class ZoomController : MonoBehaviour
         if (Mathf.Abs(ratio - 1f) < 0.0005f)
             return;
 
+        // Differenz skalieren, sodass ratio = 1 (Stillstand) immer 1 bleibt
+        float zoomFactor = 1f + (ratio - 1f) * ZoomSpeed;
+        if (zoomFactor < 0.01f)
+            zoomFactor = 0.01f;
+
         Debug.Log(
             "ZoomController.Update | Abstand: " +
             distance +
@@ -88,7 +96,7 @@ public class ZoomController : MonoBehaviour
         Vector3 pivotBefore = GetGroundPoint(screenCenter);
 
         Vector3 position = transform.position;
-        position.y = Mathf.Clamp(position.y / ratio, MinHeight, MaxHeight);
+        position.y = Mathf.Clamp(position.y / zoomFactor, MinHeight, MaxHeight);
         transform.position = position;
 
         Vector3 pivotAfter = GetGroundPoint(screenCenter);

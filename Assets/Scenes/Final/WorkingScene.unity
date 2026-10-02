@@ -1041,7 +1041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
-  debugMode: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -1753,7 +1752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
-  debugMode: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -2291,7 +2289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ae281e34594fd8b756da7209256c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
-  SecondsPerDay: 60
+  SecondsPerDay: 720
   StartTimeOfDay: 0.25
   MaxElevation: 90
   NoonIntensity: 100000
@@ -2300,6 +2298,8 @@ MonoBehaviour:
   DawnColor: {r: 1, g: 0.55, b: 0.3, a: 1}
   NoonColor: {r: 1, g: 0.96, b: 0.9, a: 1}
   TimeScale: 1
+  mapController: {fileID: 0}
+  PauseAtNoonInMapMode: 1
 --- !u!1001 &1164495578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4069,6 +4069,7 @@ MonoBehaviour:
   MinHeight: 50
   MaxHeight: 5000
   GroundLevel: 0
+  ZoomSpeed: 0.5
 --- !u!114 &1914932766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4634,7 +4635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
-  debugMode: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -4675,7 +4675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
-  debugMode: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -4716,7 +4715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchScript.Gestures.TransformGestures.ScreenTransformGesture
-  debugMode: 0
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []

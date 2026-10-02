@@ -3,7 +3,7 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour
 {
     [Tooltip("Dauer eines kompletten Tag-Nacht-Zyklus in Sekunden")]
-    public float SecondsPerDay = 120f;
+    public float SecondsPerDay = 360f;
 
     [Tooltip("Startzeit als Tagesanteil: 0 = Mitternacht, 0.25 = Morgen, 0.5 = Mittag, 0.75 = Abend")]
     [Range(0f, 1f)]
@@ -16,7 +16,7 @@ public class DayNightCycle : MonoBehaviour
     public float NoonIntensity = 100000f;
 
     [Tooltip("Lichtstaerke waehrend der Nacht (Mondschein)")]
-    public float NightIntensity = 50f;
+    public float NightIntensity = 25f;
 
     [Tooltip("Farbe des Lichts in der Nacht")]
     public Color NightColor = new Color(0.35f, 0.45f, 0.7f);
