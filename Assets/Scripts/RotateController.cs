@@ -33,6 +33,10 @@ public class RotateController : MonoBehaviour
 
     private void OnTransformed(object sender, System.EventArgs e)
     {
+        // Nur bei genau 3 Fingern drehen - bei 4, 5 usw. wird abgebrochen
+        if (RotateGesture.NumPointers != 3)
+            return;
+            
         float angle = RotateGesture.DeltaRotation;
 
         // Pivot: Punkt der Kartenebene direkt unter der Bildschirmmitte.
