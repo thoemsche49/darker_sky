@@ -4310,7 +4310,7 @@ MonoBehaviour:
   MaxPanSpeed: 1
   MinX: -12400
   MaxX: -7650
-  MinZ: -500
+  MinZ: -700
   MaxZ: 2030
 --- !u!114 &1914932764
 MonoBehaviour:
@@ -4339,7 +4339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZoomController
   ZoomGesture: {fileID: 2074608697}
-  MinHeight: 50
+  MinHeight: 100
   MaxHeight: 5000
   GroundLevel: 0
   ZoomSpeed: 0.5
