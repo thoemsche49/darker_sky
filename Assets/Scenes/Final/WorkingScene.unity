@@ -307,9 +307,9 @@ MonoBehaviour:
   _latitude: 53.55
   _longitude: 9.99
   _height: 0
-  _ecefX: 3740039.633671912
-  _ecefY: 658796.8618872479
-  _ecefZ: 5107145.578711638
+  _ecefX: 3740039.6336719124
+  _ecefY: 658796.861887248
+  _ecefZ: 5107145.578711639
   _scale: 1
 --- !u!4 &159063593
 Transform:
@@ -3299,7 +3299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ae281e34594fd8b756da7209256c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
-  SecondsPerDay: 720
+  SecondsPerDay: 360
   StartTimeOfDay: 0.25
   MaxElevation: 90
   NoonIntensity: 100000
@@ -5698,6 +5698,7 @@ MonoBehaviour:
   targetCamera: {fileID: 1914932760}
   resetDuration: 1
   controlsToDisable: []
+  mapController: {fileID: 0}
 --- !u!114 &1956507823
 MonoBehaviour:
   m_ObjectHideFlags: 0
