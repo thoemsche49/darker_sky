@@ -17,7 +17,11 @@ public class RotateController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (RotateGesture == null) return;
+        if (RotateGesture == null)
+        {
+            return;
+        }
+
         RotateGesture.Transformed += OnTransformed;
     }
 
@@ -35,23 +39,16 @@ public class RotateController : MonoBehaviour
             
         float angle = RotateGesture.DeltaRotation;
 
+        // Pivot: Punkt der Kartenebene direkt unter der Bildschirmmitte.
+        // Die Kamera kreist um diesen Punkt (Orbit) und schaut ihn dabei die
+        // ganze Zeit an. Dadurch dreht sich die Karte um die Bildschirmmitte
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         Vector3 pivot = GetGroundPoint(screenCenter);
 
         Quaternion rotation = Quaternion.Euler(0f, angle, 0f);
         Vector3 offset = rotation * (transform.position - pivot);
         transform.position = pivot + offset;
-
-        // ← Z-Rotation merken
-        float aktuellesZ = transform.eulerAngles.z;
-
-        transform.rotation = Quaternion.LookRotation(
-            (pivot - transform.position).normalized, Vector3.up);
-
-        // ← Z-Rotation wiederherstellen
-        Vector3 euler = transform.eulerAngles;
-        euler.z = aktuellesZ;
-        transform.eulerAngles = euler;
+        transform.rotation = Quaternion.LookRotation((pivot - transform.position).normalized, Vector3.up);
     }
 
     private Vector3 GetGroundPoint(Vector2 screenPos)
@@ -61,6 +58,9 @@ public class RotateController : MonoBehaviour
         float d;
         if (ground.Raycast(ray, out d))
             return ray.GetPoint(d);
+
+        // Fallback, falls der Strahl die Ebene verfehlt
         return cam.transform.position + cam.transform.forward * 50f;
+
     }
 }
