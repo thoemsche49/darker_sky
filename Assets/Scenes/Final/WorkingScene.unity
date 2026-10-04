@@ -5475,6 +5475,9 @@ MonoBehaviour:
   ZoomGesture: {fileID: 2074608697}
   MinHeight: 100
   MaxHeight: 5000
+  CheckedButton: {fileID: 192353555}
+  DisabledMinHeight: 10000
+  DisabledMaxHeight: 25400
   GroundLevel: 0
   ZoomSpeed: 0.5
 --- !u!114 &1914932766
