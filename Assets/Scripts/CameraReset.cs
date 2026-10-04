@@ -9,8 +9,7 @@ public class CameraReset : MonoBehaviour
     [Header("Während Reset deaktivieren")]
     [SerializeField] private Behaviour[] controlsToDisable;
 
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
+    [SerializeField] private MapController mapController;
 
     private bool[] previousStates;
     private bool isResetting;
@@ -20,16 +19,13 @@ public class CameraReset : MonoBehaviour
         if (targetCamera == null)
             targetCamera = Camera.main;
 
-        if (targetCamera == null)
-            return;
-
-        initialPosition = targetCamera.transform.position;
-        initialRotation = targetCamera.transform.rotation;
+        if (mapController == null)
+            mapController = FindObjectOfType<MapController>();
     }
 
     public void ResetCamera()
     {
-        if (targetCamera == null || isResetting)
+        if (targetCamera == null || mapController == null || isResetting)
             return;
 
         StartCoroutine(ResetCameraSmoothly());
@@ -40,11 +36,29 @@ public class CameraReset : MonoBehaviour
         isResetting = true;
         SetControlsEnabled(false);
 
-        Vector3 startPosition =
-            targetCamera.transform.position;
+        Vector3 startPosition = targetCamera.transform.position;
+        Quaternion startRotation = targetCamera.transform.rotation;
 
-        Quaternion startRotation =
-            targetCamera.transform.rotation;
+        Vector3 resetPosition;
+        Quaternion resetRotation;
+
+        if (mapController.IsMapActive)
+        {
+            // In der Karte: auf die Default-"zoomed out"-Ansicht der
+            // Lichtverschmutzungskarte ("uber dem Ursprung, Blick von oben);
+            // der Kartenmodus bleibt dabei aktiv
+            resetPosition = new Vector3(
+                mapController.OriginPosition.x,
+                mapController.OriginPosition.y + mapController.zoomHoehe,
+                mapController.OriginPosition.z
+            );
+            resetRotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+        else
+        {
+            resetPosition = mapController.OriginPosition;
+            resetRotation = mapController.OriginRotation;
+        }
 
         float elapsedTime = 0f;
 
@@ -52,33 +66,16 @@ public class CameraReset : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            float t = Mathf.Clamp01(
-                elapsedTime / resetDuration
-            );
-
+            float t = Mathf.Clamp01(elapsedTime / resetDuration);
             t = Mathf.SmoothStep(0f, 1f, t);
 
-            targetCamera.transform.position =
-                Vector3.Lerp(
-                    startPosition,
-                    initialPosition,
-                    t
-                );
-
-            targetCamera.transform.rotation =
-                Quaternion.Slerp(
-                    startRotation,
-                    initialRotation,
-                    t
-                );
+            targetCamera.transform.position = Vector3.Lerp(startPosition, resetPosition, t);
+            targetCamera.transform.rotation = Quaternion.Slerp(startRotation, resetRotation, t);
 
             yield return null;
         }
 
-        targetCamera.transform.SetPositionAndRotation(
-            initialPosition,
-            initialRotation
-        );
+        targetCamera.transform.SetPositionAndRotation(resetPosition, resetRotation);
 
         SetControlsEnabled(true);
         isResetting = false;

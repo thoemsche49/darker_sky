@@ -44,8 +44,15 @@ public class MapController : MonoBehaviour
     private GameObject[] maps;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originPosition;
+    private Quaternion originRotation;
     private bool istGezoomt = false;
     private bool istAnimiert = false;
+
+    // Echter Ursprung (Startposition beim App-Start) - Ziel fuer Kamera-Reset
+    public Vector3 OriginPosition { get { return originPosition; } }
+    public Quaternion OriginRotation { get { return originRotation; } }
+    public bool IsMapActive { get { return istGezoomt; } }
 
     // Wird beim Druecken der Karten-/Zuerueck-Tasten ausgeloest (true = Overlay offen)
     public System.Action<bool> MapModeChanged;
@@ -60,6 +67,8 @@ public class MapController : MonoBehaviour
 
         originalPosition = mainCamera.transform.position;
         originalRotation = mainCamera.transform.rotation;
+        originPosition = mainCamera.transform.position;
+        originRotation = mainCamera.transform.rotation;
 
         // Zurück Button und Slider am Anfang verstecken
         if (zurueckButton != null)
