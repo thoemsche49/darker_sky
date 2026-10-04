@@ -307,9 +307,9 @@ MonoBehaviour:
   _latitude: 53.55
   _longitude: 9.99
   _height: 0
-  _ecefX: 3740039.6336719124
-  _ecefY: 658796.861887248
-  _ecefZ: 5107145.578711639
+  _ecefX: 3740039.633671912
+  _ecefY: 658796.8618872479
+  _ecefZ: 5107145.578711638
   _scale: 1
 --- !u!4 &159063593
 Transform:
@@ -5614,6 +5614,9 @@ MonoBehaviour:
   ZoomGesture: {fileID: 2074608697}
   MinHeight: 100
   MaxHeight: 5000
+  CheckedButton: {fileID: 192353555}
+  DisabledMinHeight: 10000
+  DisabledMaxHeight: 25400
   GroundLevel: 0
   ZoomSpeed: 0.5
 --- !u!114 &1914932766
@@ -5645,6 +5648,7 @@ GameObject:
   - component: {fileID: 1956507820}
   - component: {fileID: 1956507822}
   - component: {fileID: 1956507823}
+  - component: {fileID: 1956507824}
   m_Layer: 0
   m_Name: ApplicationController
   m_TagString: Untagged
@@ -5708,6 +5712,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResetButtonAvailability
   resetButton: {fileID: 1505815901}
   checkedButton: {fileID: 192353555}
+--- !u!114 &1956507824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956507819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515a1421ceb914308a8e392092cadcc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GestureAvailability
+  checkedButton: {fileID: 192353555}
+  multiGestureObject: {fileID: 2074608693}
+  singleGestureObject: {fileID: 942981358}
 --- !u!1 &1960687090
 GameObject:
   m_ObjectHideFlags: 0

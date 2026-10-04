@@ -1,5 +1,6 @@
 using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
+using UnityEngine.UI;
 
 public class ZoomController : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class ZoomController : MonoBehaviour
 
     public float MinHeight = 50f;
     public float MaxHeight = 5000f;
+
+    [Header("Bei deaktiviertem Button")]
+    public Button CheckedButton;
+    public float DisabledMinHeight = 10000f;
+    public float DisabledMaxHeight = 25400f;
+
     public float GroundLevel = 0f;
 
     // 1 = unverändert, 2 = doppelt so schnell, 0.5 = halb so schnell
@@ -71,8 +78,26 @@ public class ZoomController : MonoBehaviour
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         Vector3 pivotBefore = GetGroundPoint(screenCenter);
 
+        bool buttonIsAvailable =
+            CheckedButton != null &&
+            CheckedButton.gameObject.activeInHierarchy &&
+            CheckedButton.enabled &&
+            CheckedButton.interactable;
+
+        float currentMinHeight = buttonIsAvailable
+            ? MinHeight
+            : DisabledMinHeight;
+
+        float currentMaxHeight = buttonIsAvailable
+            ? MaxHeight
+            : DisabledMaxHeight;
+
         Vector3 position = transform.position;
-        position.y = Mathf.Clamp(position.y / zoomFactor, MinHeight, MaxHeight);
+        position.y = Mathf.Clamp(
+            position.y / zoomFactor,
+            currentMinHeight,
+            currentMaxHeight
+        );
         transform.position = position;
 
         Vector3 pivotAfter = GetGroundPoint(screenCenter);
