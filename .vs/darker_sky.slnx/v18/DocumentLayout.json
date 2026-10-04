@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\ASaAI Projekt\\darker_sky\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\asaai projekt\\darker_sky\\assets\\scripts\\rotatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rotatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\asaai projekt\\darker_sky\\assets\\scripts\\tiltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tiltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RotateController.cs",
+              "DocumentMoniker": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\RotateController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RotateController.cs",
+              "ToolTip": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\RotateController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RotateController.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAA0wCUAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-04T19:59:04.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TiltController.cs",
+              "DocumentMoniker": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\TiltController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TiltController.cs",
+              "ToolTip": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\TiltController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TiltController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAcwEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-04T19:56:03.734Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

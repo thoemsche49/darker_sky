@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\ASaAI Projekt\\darker_sky\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\RotateController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\RotateController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\asaai projekt\\darker_sky\\assets\\scripts\\screenrotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\screenrotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ScreenRotation.cs",
+              "DocumentMoniker": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\ScreenRotation.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ScreenRotation.cs",
+              "ToolTip": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\ScreenRotation.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ScreenRotation.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAcwDQAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-04T12:54:28.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RotateController.cs",
+              "DocumentMoniker": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\RotateController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RotateController.cs",
+              "ToolTip": "E:\\ASaAI Projekt\\darker_sky\\Assets\\Scripts\\RotateController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RotateController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-04T17:13:00.835Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

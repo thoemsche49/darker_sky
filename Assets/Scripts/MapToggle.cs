@@ -26,7 +26,7 @@ public class MapController : MonoBehaviour
     public Button zurueckButton;
     public Slider mapSlider;
     public TextMeshProUGUI sliderLabel;
-    public GameObject legend; 
+    public GameObject legend;
     public Button creditsButton;
     public Button creditsClose;
     public GameObject creditsText;
@@ -39,7 +39,6 @@ public class MapController : MonoBehaviour
     public GameObject steuerungText15Finger; // 1-5 Finger (kein Karten-Overlay)
     public GameObject steuerungText12Finger; // 1-2 Finger (Karten-Overlay aktiv)
 
-    // Strahlendichte Werte
     private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
     private GameObject[] maps;
     private Vector3 originalPosition;
@@ -70,7 +69,6 @@ public class MapController : MonoBehaviour
         originPosition = mainCamera.transform.position;
         originRotation = mainCamera.transform.rotation;
 
-        // Zurück Button und Slider am Anfang verstecken
         if (zurueckButton != null)
             zurueckButton.gameObject.SetActive(false);
         if (mapSlider != null)
@@ -78,23 +76,19 @@ public class MapController : MonoBehaviour
         if (sliderLabel != null)
             sliderLabel.gameObject.SetActive(false);
 
-        // Slider Listener
         if (mapSlider != null)
             mapSlider.onValueChanged.AddListener(SliderGeaendert);
-        
-        // Credits-Text und Schließen-Button am Anfang verstecken
+
         if (creditsText != null)
             creditsText.gameObject.SetActive(false);
         if (creditsClose != null)
             creditsClose.gameObject.SetActive(false);
 
-        // Button-Listener Credits
         if (creditsButton != null)
             creditsButton.onClick.AddListener(CreditsOeffnen);
         if (creditsClose != null)
             creditsClose.onClick.AddListener(CreditsSchliessen);
 
-        // Steuerung-Text und Schließen-Button am Anfang verstecken
         if (steuerungText != null)
             steuerungText.gameObject.SetActive(false);
         if (steuerungClose != null)
@@ -104,16 +98,13 @@ public class MapController : MonoBehaviour
         if (steuerungText12Finger != null)
             steuerungText12Finger.gameObject.SetActive(false);
 
-        // Button-Listener Steuerung
         if (steuerungButton != null)
             steuerungButton.onClick.AddListener(SteuerungOeffnen);
         if (steuerungClose != null)
             steuerungClose.onClick.AddListener(SteuerungSchliessen);
 
-        // Label initial setzen
         AktualisierLabel(0);
 
-        // Burger-Menü-Buttons am Anfang verstecken
         if (creditsButton != null)
             creditsButton.gameObject.SetActive(false);
         if (quitButton != null)
@@ -123,11 +114,9 @@ public class MapController : MonoBehaviour
         if (steuerungButton != null)
             steuerungButton.gameObject.SetActive(false);
 
-        // Burger-Button Listener
         if (menuButton != null)
             menuButton.onClick.AddListener(BurgerMenuToggle);
 
-        // Zusätzliche Listener: Menü schließen, wenn ein Punkt gewählt wird
         if (creditsButton != null)
             creditsButton.onClick.AddListener(BurgerMenuSchliessen);
         if (quitButton != null)
@@ -138,7 +127,6 @@ public class MapController : MonoBehaviour
             steuerungButton.onClick.AddListener(BurgerMenuSchliessen);
     }
 
-    // Haupt Button
     public void NaechsteMap()
     {
         if (istAnimiert) return;
@@ -148,11 +136,12 @@ public class MapController : MonoBehaviour
             MapModeChanged?.Invoke(true);
             originalPosition = mainCamera.transform.position;
             originalRotation = mainCamera.transform.rotation;
+            // ← Z-Rotation jetzt explizit speichern
+            gespeichertesZ = mainCamera.transform.eulerAngles.z;
             StartCoroutine(RausZoomenDannMap());
         }
     }
 
-    // Zurück Button
     public void ZurueckZoomen()
     {
         if (istAnimiert) return;
@@ -160,7 +149,6 @@ public class MapController : MonoBehaviour
         StartCoroutine(ReinZoomenUndAusschalten());
     }
 
-    // Wird automatisch aufgerufen wenn Slider bewegt wird
     void SliderGeaendert(float wert)
     {
         int index = Mathf.RoundToInt(wert);
@@ -252,16 +240,16 @@ public class MapController : MonoBehaviour
     {
         istAnimiert = true;
 
-        if (mapButton != null) {
+        if (mapButton != null)
             mapButton.interactable = false;
-        }
 
         Vector3 zielPosition = new Vector3(
             mainCamera.transform.position.x,
             originalPosition.y + zoomHoehe,
             mainCamera.transform.position.z
         );
-        Quaternion zielRotation = Quaternion.Euler(90f, 0f, 0f);
+        // ← gespeichertesZ nutzen statt aktuelles
+        Quaternion zielRotation = Quaternion.Euler(90f, 0f, gespeichertesZ);
 
         float timer = 0f;
         Vector3 startPos = mainCamera.transform.position;
@@ -280,21 +268,20 @@ public class MapController : MonoBehaviour
         istGezoomt = true;
         istAnimiert = false;
 
-        // Slider + Label + Zurück Button + Legende einblenden
         if (zurueckButton != null)
+        {
             zurueckButton.gameObject.SetActive(true);
             zurueckButton.interactable = true;
+        }
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(true);
         if (sliderLabel != null)
             sliderLabel.gameObject.SetActive(true);
         if (legend != null)
             legend.gameObject.SetActive(true);
-        // Map Button ausblenden
         if (mapButton != null)
             mapButton.gameObject.SetActive(false);
 
-        // Erste Map anzeigen
         mapSlider.value = 0;
         MapAnzeigen(maps[0]);
     }
@@ -304,10 +291,8 @@ public class MapController : MonoBehaviour
         istAnimiert = true;
         AlleAusschalten();
 
-        if (zurueckButton != null) {
+        if (zurueckButton != null)
             zurueckButton.interactable = false;
-        }
-        // Slider + Label + Legende verstecken
 
         if (mapSlider != null)
             mapSlider.gameObject.SetActive(false);
@@ -320,15 +305,30 @@ public class MapController : MonoBehaviour
         Vector3 startPos = mainCamera.transform.position;
         Quaternion startRot = mainCamera.transform.rotation;
 
+        // ← Zielrotation direkt aus gespeichertesZ bauen
+        Quaternion zielRot = Quaternion.Euler(
+            originalRotation.eulerAngles.x,
+            originalRotation.eulerAngles.y,
+            gespeichertesZ
+        );
+
         while (timer < zoomDauer)
         {
             timer += Time.deltaTime;
             float t = Mathf.Clamp01(timer / zoomDauer);
             t = t * t * (3f - 2f * t);
             mainCamera.transform.position = Vector3.Lerp(startPos, originalPosition, t);
-            mainCamera.transform.rotation = Quaternion.Lerp(startRot, originalRotation, t);
+            mainCamera.transform.rotation = Quaternion.Lerp(startRot, zielRot, t);
             yield return null;
         }
+
+        // ← Am Ende exakt setzen damit kein Drift entsteht
+        mainCamera.transform.position = originalPosition;
+        mainCamera.transform.eulerAngles = new Vector3(
+            originalRotation.eulerAngles.x,
+            originalRotation.eulerAngles.y,
+            gespeichertesZ
+        );
 
         istGezoomt = false;
         istAnimiert = false;

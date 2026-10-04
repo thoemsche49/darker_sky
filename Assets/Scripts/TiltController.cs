@@ -8,13 +8,13 @@ public class TiltController : MonoBehaviour
     [Tooltip("Hoehe der Kartenebene (Welt-Y), um die geneigt wird")]
     public float GroundLevel = 0f;
 
-    [Tooltip("Minimaler Neigungswinkel in Grad (flach/Draufsicht, 90 = senkrecht von oben)")]
+    [Tooltip("Minimaler Neigungswinkel in Grad")]
     public float MinPitch = 20f;
 
-    [Tooltip("Maximaler Neigungswinkel in Grad (steil/fast Draufsicht)")]
+    [Tooltip("Maximaler Neigungswinkel in Grad")]
     public float MaxPitch = 89f;
 
-    [Tooltip("Empfindlichkeit der Fingerbewegung auf den Neigungswinkel")]
+    [Tooltip("Empfindlichkeit der Fingerbewegung")]
     public float TiltSpeed = 0.2f;
 
     private Camera cam;
@@ -33,7 +33,6 @@ public class TiltController : MonoBehaviour
             Debug.LogError("TiltGesture fehlt");
             return;
         }
-
         TiltGesture.Transformed += OnTransformed;
     }
 
@@ -45,29 +44,21 @@ public class TiltController : MonoBehaviour
 
     private void OnTransformed(object sender, System.EventArgs e)
     {
-        if (cam == null)
-            return;
+        if (cam == null) return;
 
-        // Vertikale Fingerbewegung: nach oben ziehen = negative Y-Delta in Screen-Koordinaten? 
-        // TouchScript: DeltaPosition.y ist positiv, wenn Finger nach oben bewegt werden.
         float dragY = TiltGesture.DeltaPosition.y;
-        if (Mathf.Approximately(dragY, 0f))
-            return;
+        if (Mathf.Approximately(dragY, 0f)) return;
 
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         Vector3 pivot = GetGroundPoint(screenCenter);
 
         Vector3 offset = transform.position - pivot;
         float distance = offset.magnitude;
-        if (distance < 0.001f)
-            return;
+        if (distance < 0.001f) return;
 
-        // Aktuellen Yaw- und Pitch-Winkel aus der bestehenden Position ableiten
         float currentPitch = Mathf.Asin(Mathf.Clamp(offset.y / distance, -1f, 1f)) * Mathf.Rad2Deg;
         float yaw = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
 
-        // Finger nach oben (Google-Maps-Verhalten) -> steiler neigen (Pitch sinkt Richtung horizontal)
-        // Finger nach unten -> wieder Richtung Draufsicht
         float newPitch = Mathf.Clamp(currentPitch - dragY * TiltSpeed, MinPitch, MaxPitch);
 
         float pitchRad = newPitch * Mathf.Deg2Rad;
@@ -80,7 +71,17 @@ public class TiltController : MonoBehaviour
         ) * distance;
 
         transform.position = pivot + newOffset;
-        transform.rotation = Quaternion.LookRotation((pivot - transform.position).normalized, Vector3.up);
+
+        // ← Z-Rotation merken
+        float aktuellesZ = transform.eulerAngles.z;
+
+        transform.rotation = Quaternion.LookRotation(
+            (pivot - transform.position).normalized, Vector3.up);
+
+        // ← Z-Rotation wiederherstellen
+        Vector3 euler = transform.eulerAngles;
+        euler.z = aktuellesZ;
+        transform.eulerAngles = euler;
     }
 
     private Vector3 GetGroundPoint(Vector2 screenPos)
@@ -90,7 +91,6 @@ public class TiltController : MonoBehaviour
         float d;
         if (ground.Raycast(ray, out d))
             return ray.GetPoint(d);
-
         return cam.transform.position + cam.transform.forward * 50f;
     }
 }
