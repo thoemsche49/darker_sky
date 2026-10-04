@@ -36,6 +36,8 @@ public class MapController : MonoBehaviour
     public Button steuerungButton;
     public Button steuerungClose;
     public GameObject steuerungText;
+    public GameObject steuerungText15Finger; // 1-5 Finger (kein Karten-Overlay)
+    public GameObject steuerungText12Finger; // 1-2 Finger (Karten-Overlay aktiv)
 
     // Strahlendichte Werte
     private int[] strahlenwerte = { 25, 50, 75, 100, 200 };
@@ -88,6 +90,10 @@ public class MapController : MonoBehaviour
             steuerungText.gameObject.SetActive(false);
         if (steuerungClose != null)
             steuerungClose.gameObject.SetActive(false);
+        if (steuerungText15Finger != null)
+            steuerungText15Finger.gameObject.SetActive(false);
+        if (steuerungText12Finger != null)
+            steuerungText12Finger.gameObject.SetActive(false);
 
         // Button-Listener Steuerung
         if (steuerungButton != null)
@@ -183,6 +189,12 @@ public class MapController : MonoBehaviour
             steuerungText.gameObject.SetActive(true);
         if (steuerungClose != null)
             steuerungClose.gameObject.SetActive(true);
+
+        // Karten-Overlay aktiv? -> 1-2 Finger, sonst 1-5 Finger
+        if (steuerungText15Finger != null)
+            steuerungText15Finger.gameObject.SetActive(!istGezoomt);
+        if (steuerungText12Finger != null)
+            steuerungText12Finger.gameObject.SetActive(istGezoomt);
     }
 
     public void SteuerungSchliessen()
@@ -191,6 +203,10 @@ public class MapController : MonoBehaviour
             steuerungText.gameObject.SetActive(false);
         if (steuerungClose != null)
             steuerungClose.gameObject.SetActive(false);
+        if (steuerungText15Finger != null)
+            steuerungText15Finger.gameObject.SetActive(false);
+        if (steuerungText12Finger != null)
+            steuerungText12Finger.gameObject.SetActive(false);
     }
 
     private bool istMenuOffen = false;
