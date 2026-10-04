@@ -1,12 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Smoothly moves the camera to the reset target when the reset button is pressed:
+/// the app-start pose, or - while the map overlay is open - the default top-down
+/// map view above the start position (the overlay stays open).
+/// </summary>
 public class CameraReset : MonoBehaviour
 {
     [SerializeField] private Camera targetCamera;
     [SerializeField] private float resetDuration = 1.5f;
 
-    [Header("Während Reset deaktivieren")]
+    [Header("Disabled During Reset")]
+    [Tooltip("Behaviours (gestures, controllers) disabled while the reset animation runs.")]
     [SerializeField] private Behaviour[] controlsToDisable;
 
     [SerializeField] private MapController mapController;
@@ -23,15 +29,16 @@ public class CameraReset : MonoBehaviour
             mapController = FindObjectOfType<MapController>();
     }
 
+    /// <summary>Called by the reset button (scene onClick).</summary>
     public void ResetCamera()
     {
         if (targetCamera == null || mapController == null || isResetting)
             return;
 
-        StartCoroutine(ResetCameraSmoothly());
+        StartCoroutine(AnimateCameraToTarget());
     }
 
-    private IEnumerator ResetCameraSmoothly()
+    private IEnumerator AnimateCameraToTarget()
     {
         isResetting = true;
         SetControlsEnabled(false);
@@ -42,22 +49,21 @@ public class CameraReset : MonoBehaviour
         Vector3 resetPosition;
         Quaternion resetRotation;
 
-        if (mapController.IsMapActive)
+        if (mapController.IsMapOpen)
         {
-            // In der Karte: auf die Default-"zoomed out"-Ansicht der
-            // Lichtverschmutzungskarte ("uber dem Ursprung, Blick von oben);
-            // der Kartenmodus bleibt dabei aktiv
+            // In map view: go to the default "zoomed out" top-down view of the
+            // light-pollution map (above the start position). The map stays open.
             resetPosition = new Vector3(
-                mapController.OriginPosition.x,
-                mapController.OriginPosition.y + mapController.zoomHoehe,
-                mapController.OriginPosition.z
-            );
+                mapController.StartPosition.x,
+                mapController.StartPosition.y + mapController.mapViewHeight,
+                mapController.StartPosition.z);
             resetRotation = Quaternion.Euler(90f, 0f, 0f);
         }
         else
         {
-            resetPosition = mapController.OriginPosition;
-            resetRotation = mapController.OriginRotation;
+            // Normal view: return to the app-start pose.
+            resetPosition = mapController.StartPosition;
+            resetRotation = mapController.StartRotation;
         }
 
         float elapsedTime = 0f;

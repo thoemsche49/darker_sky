@@ -1,57 +1,59 @@
-using UnityEngine;
-using UnityEngine.UI;
 using TouchScript.Gestures.TransformGestures;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
+/// <summary>
+/// Toggles TouchScript gestures depending on a UI button's availability.
+/// Whenever the button is shown and interactive, the gestures are enabled.
+/// Used to switch between the free-navigation gestures (>= 3 fingers) and a
+/// single gesture while the map overlay is open.
+/// </summary>
 public class GestureAvailability : MonoBehaviour
 {
-    [SerializeField] private Button checkedButton;
+    [FormerlySerializedAs("checkedButton")]
+    [SerializeField] private Button availabilityButton;
 
-    [Header("Objekt mit mehreren Gesten")]
+    [Header("Object With Multiple Gestures")]
     [SerializeField] private GameObject multiGestureObject;
 
-    [Header("Objekt mit einzelner Gesture")]
+    [Header("Object With a Single Gesture")]
     [SerializeField] private GameObject singleGestureObject;
 
     private ScreenTransformGesture[] multiGestures;
     private ScreenTransformGesture singleGesture;
-    private bool? previousState;
+    private bool? lastButtonAvailable;
 
     private void Awake()
     {
         if (multiGestureObject != null)
-        {
-            multiGestures =
-                multiGestureObject.GetComponents<ScreenTransformGesture>();
-        }
+            multiGestures = multiGestureObject.GetComponents<ScreenTransformGesture>();
 
         if (singleGestureObject != null)
-        {
-            singleGesture =
-                singleGestureObject.GetComponent<ScreenTransformGesture>();
-        }
+            singleGesture = singleGestureObject.GetComponent<ScreenTransformGesture>();
 
-        UpdateGestureState();
+        ApplyGestureState();
     }
 
     private void Update()
     {
-        UpdateGestureState();
+        ApplyGestureState();
     }
 
-    private void UpdateGestureState()
+    private void ApplyGestureState()
     {
         bool buttonIsAvailable =
-            checkedButton != null &&
-            checkedButton.gameObject.activeInHierarchy &&
-            checkedButton.enabled &&
-            checkedButton.interactable;
+            availabilityButton != null &&
+            availabilityButton.gameObject.activeInHierarchy &&
+            availabilityButton.enabled &&
+            availabilityButton.interactable;
 
-        if (previousState == buttonIsAvailable)
+        if (lastButtonAvailable == buttonIsAvailable)
             return;
 
-        previousState = buttonIsAvailable;
+        lastButtonAvailable = buttonIsAvailable;
 
-        // Nur Gesten für mindestens drei Finger umschalten.
+        // Toggle only the free-navigation gestures (those needing >= 3 fingers).
         if (multiGestures != null)
         {
             foreach (ScreenTransformGesture gesture in multiGestures)
@@ -61,7 +63,7 @@ public class GestureAvailability : MonoBehaviour
             }
         }
 
-        // Die einzelne Gesture vollständig umschalten.
+        // Fully toggle the single gesture.
         if (singleGesture != null)
             singleGesture.enabled = buttonIsAvailable;
     }

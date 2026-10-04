@@ -456,7 +456,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1297170198}
         m_TargetAssemblyTypeName: MapController, Assembly-CSharp
-        m_MethodName: NaechsteMap
+        m_MethodName: OpenMapView
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4834,7 +4834,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1297170198}
         m_TargetAssemblyTypeName: MapController, Assembly-CSharp
-        m_MethodName: ZurueckZoomen
+        m_MethodName: ExitMapView
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,30 +1,35 @@
-using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
+using UnityEngine;
 
+/// <summary>
+/// Pans the camera with a one-finger drag. The movement is aligned to the
+/// camera orientation so the map follows the finger even after the camera has
+/// been rotated. The pan speed scales with the camera height and the position
+/// is clamped to the configured map bounds.
+/// </summary>
 public class PanController : MonoBehaviour
 {
+    [Tooltip("One-finger pan gesture that drives the panning.")]
     public ScreenTransformGesture OneFingerPanGesture;
 
-    [Tooltip("Bewegung pro Pixel Fingerbewegung")]
+    [Tooltip("Base movement per pixel of finger travel.")]
     public float PanSpeed = 0.1f;
 
-    [Header("Dynamische Pan-Geschwindigkeit")]
+    [Header("Dynamic Pan Speed")]
+    [Tooltip("Camera height at which PanSpeed applies unchanged.")]
     public float ReferenceHeight = 200f;
+
+    [Tooltip("Minimum pan speed (at very low camera heights).")]
     public float MinPanSpeed = 0.1f;
+
+    [Tooltip("Maximum pan speed (at very high camera heights).")]
     public float MaxPanSpeed = 1.0f;
 
-    [Header("Kamera-Grenzen")]
+    [Header("Camera Bounds")]
     public float MinX = -1000f;
     public float MaxX = 1000f;
     public float MinZ = -1000f;
     public float MaxZ = 1000f;
-
-    private float fixedY;
-
-    private void Awake()
-    {
-        fixedY = transform.position.y;
-    }
 
     private void OnEnable()
     {
@@ -42,42 +47,31 @@ public class PanController : MonoBehaviour
     {
         Vector2 delta = OneFingerPanGesture.DeltaPosition;
 
-        // Pan in Kamera-Ausrichtung: Die Karte folgt der Fingerbewegung -
-        // auch nach einer Rotation der Kamera (rechts = Bildrechts,
-        // oben = Bildoberkante).
+        // Pan along the camera orientation: right of the screen = world right.
         Vector3 right = transform.right;
         right.y = 0f;
         right.Normalize();
 
+        // The finger moves along the screen plane, so grab the camera's screen-up.
         Vector3 screenUp = transform.up;
         screenUp.y = 0f;
         if (screenUp.sqrMagnitude < 0.0001f)
             screenUp = -transform.forward;
         screenUp.Normalize();
 
-        float heightFactor =
-            transform.position.y / ReferenceHeight;
-
-        float currentPanSpeed =
-            Mathf.Clamp(
-                PanSpeed * heightFactor,
-                MinPanSpeed,
-                MaxPanSpeed
-            );
+        // Scale the pan speed with the camera height.
+        float heightFactor = transform.position.y / ReferenceHeight;
+        float currentSpeed =
+            Mathf.Clamp(PanSpeed * heightFactor, MinPanSpeed, MaxPanSpeed);
 
         Vector3 movement =
-            (-delta.x * right - delta.y * screenUp)
-            * currentPanSpeed;      
+            (-delta.x * right - delta.y * screenUp) * currentSpeed;
         transform.position += movement;
 
-        // Kamera bleibt immer auf derselben Höhe
+        // Keep the movement within the map bounds.
         Vector3 position = transform.position;
-        // position.y = fixedY;
-
-        // Bewegung innerhalb der Karten-Grenzen halten
         position.x = Mathf.Clamp(position.x, MinX, MaxX);
         position.z = Mathf.Clamp(position.z, MinZ, MaxZ);
-
         transform.position = position;
     }
 }

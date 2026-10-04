@@ -1,36 +1,42 @@
-using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
+using UnityEngine;
 
+/// <summary>
+/// Tilts the camera around the map point below the screen centre while a
+/// two-finger vertical drag is active. Dragging up pitches the camera steeper,
+/// dragging down returns it towards top-down (Google-Maps behaviour).
+/// </summary>
 public class TiltController : MonoBehaviour
 {
+    [Tooltip("Two-finger tilt gesture that drives the tilting.")]
     public ScreenTransformGesture TiltGesture;
 
-    [Tooltip("Hoehe der Kartenebene (Welt-Y), um die geneigt wird")]
+    [Tooltip("World Y of the map plane around which the camera tilts.")]
     public float GroundLevel = 0f;
 
-    [Tooltip("Minimaler Neigungswinkel in Grad (flach/Draufsicht, 90 = senkrecht von oben)")]
+    [Tooltip("Minimum pitch (shallow) in degrees.")]
     public float MinPitch = 20f;
 
-    [Tooltip("Maximaler Neigungswinkel in Grad (steil/fast Draufsicht)")]
+    [Tooltip("Maximum pitch (steep, close to top-down) in degrees.")]
     public float MaxPitch = 89f;
 
-    [Tooltip("Empfindlichkeit der Fingerbewegung auf den Neigungswinkel")]
+    [Tooltip("Sensitivity of the finger drag on the pitch angle.")]
     public float TiltSpeed = 0.2f;
 
-    private Camera cam;
+    private Camera cachedCamera;
 
     private void Awake()
     {
-        cam = GetComponent<Camera>();
-        if (cam == null)
-            cam = Camera.main;
+        cachedCamera = GetComponent<Camera>();
+        if (cachedCamera == null)
+            cachedCamera = Camera.main;
     }
 
     private void OnEnable()
     {
         if (TiltGesture == null)
         {
-            Debug.LogError("TiltGesture fehlt");
+            Debug.LogError("TiltGesture is missing");
             return;
         }
 
@@ -45,13 +51,12 @@ public class TiltController : MonoBehaviour
 
     private void OnTransformed(object sender, System.EventArgs e)
     {
-        if (cam == null)
+        if (cachedCamera == null)
             return;
 
-        // Vertikale Fingerbewegung: nach oben ziehen = negative Y-Delta in Screen-Koordinaten? 
-        // TouchScript: DeltaPosition.y ist positiv, wenn Finger nach oben bewegt werden.
-        float dragY = TiltGesture.DeltaPosition.y;
-        if (Mathf.Approximately(dragY, 0f))
+        // Vertical finger drag; positive when the finger moves up (TouchScript).
+        float verticalDrag = TiltGesture.DeltaPosition.y;
+        if (Mathf.Approximately(verticalDrag, 0f))
             return;
 
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
@@ -62,13 +67,12 @@ public class TiltController : MonoBehaviour
         if (distance < 0.001f)
             return;
 
-        // Aktuellen Yaw- und Pitch-Winkel aus der bestehenden Position ableiten
+        // Derive the current pitch and yaw from the existing camera position.
         float currentPitch = Mathf.Asin(Mathf.Clamp(offset.y / distance, -1f, 1f)) * Mathf.Rad2Deg;
         float yaw = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
 
-        // Finger nach oben (Google-Maps-Verhalten) -> steiler neigen (Pitch sinkt Richtung horizontal)
-        // Finger nach unten -> wieder Richtung Draufsicht
-        float newPitch = Mathf.Clamp(currentPitch - dragY * TiltSpeed, MinPitch, MaxPitch);
+        // Drag up -> steeper (pitch towards horizontal); drag down -> top-down again.
+        float newPitch = Mathf.Clamp(currentPitch - verticalDrag * TiltSpeed, MinPitch, MaxPitch);
 
         float pitchRad = newPitch * Mathf.Deg2Rad;
         float yawRad = yaw * Mathf.Deg2Rad;
@@ -83,14 +87,14 @@ public class TiltController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation((pivot - transform.position).normalized, Vector3.up);
     }
 
-    private Vector3 GetGroundPoint(Vector2 screenPos)
+    private Vector3 GetGroundPoint(Vector2 screenPosition)
     {
-        Ray ray = cam.ScreenPointToRay(screenPos);
+        Ray ray = cachedCamera.ScreenPointToRay(screenPosition);
         Plane ground = new Plane(Vector3.up, new Vector3(0f, GroundLevel, 0f));
-        float d;
-        if (ground.Raycast(ray, out d))
-            return ray.GetPoint(d);
+        float distance;
+        if (ground.Raycast(ray, out distance))
+            return ray.GetPoint(distance);
 
-        return cam.transform.position + cam.transform.forward * 50f;
+        return cachedCamera.transform.position + cachedCamera.transform.forward * 50f;
     }
 }

@@ -1,26 +1,30 @@
-using UnityEngine;
 using TouchScript.Gestures.TransformGestures;
+using UnityEngine;
 
+/// <summary>
+/// Orbits the camera horizontally around the map point below the screen centre
+/// while a three-finger rotation gesture is active. The camera always looks at
+/// that pivot, so the map appears to rotate around the screen centre.
+/// </summary>
 public class RotateController : MonoBehaviour
 {
+    [Tooltip("Three-finger rotation gesture that drives the orbit.")]
     public ScreenTransformGesture RotateGesture;
 
-    [Tooltip("Hoehe der Kartenebene (Welt-Y), um die die Kamera kreist")]
+    [Tooltip("World Y of the map plane around which the camera orbits.")]
     public float GroundLevel = 0f;
 
-    private Camera cam;
+    private Camera cachedCamera;
 
     private void Awake()
     {
-        cam = GetComponent<Camera>();
+        cachedCamera = GetComponent<Camera>();
     }
 
     private void OnEnable()
     {
         if (RotateGesture == null)
-        {
             return;
-        }
 
         RotateGesture.Transformed += OnTransformed;
     }
@@ -33,15 +37,13 @@ public class RotateController : MonoBehaviour
 
     private void OnTransformed(object sender, System.EventArgs e)
     {
-        // Nur bei genau 3 Fingern drehen - bei 4, 5 usw. wird abgebrochen
+        // Only rotate with exactly three fingers; any other count aborts.
         if (RotateGesture.NumPointers != 3)
             return;
-            
+
         float angle = RotateGesture.DeltaRotation;
 
-        // Pivot: Punkt der Kartenebene direkt unter der Bildschirmmitte.
-        // Die Kamera kreist um diesen Punkt (Orbit) und schaut ihn dabei die
-        // ganze Zeit an. Dadurch dreht sich die Karte um die Bildschirmmitte
+        // Pivot: the map point directly below the screen centre.
         Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
         Vector3 pivot = GetGroundPoint(screenCenter);
 
@@ -51,16 +53,15 @@ public class RotateController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation((pivot - transform.position).normalized, Vector3.up);
     }
 
-    private Vector3 GetGroundPoint(Vector2 screenPos)
+    private Vector3 GetGroundPoint(Vector2 screenPosition)
     {
-        Ray ray = cam.ScreenPointToRay(screenPos);
+        Ray ray = cachedCamera.ScreenPointToRay(screenPosition);
         Plane ground = new Plane(Vector3.up, new Vector3(0f, GroundLevel, 0f));
-        float d;
-        if (ground.Raycast(ray, out d))
-            return ray.GetPoint(d);
+        float distance;
+        if (ground.Raycast(ray, out distance))
+            return ray.GetPoint(distance);
 
-        // Fallback, falls der Strahl die Ebene verfehlt
-        return cam.transform.position + cam.transform.forward * 50f;
-
+        // Fallback if the ray misses the plane.
+        return cachedCamera.transform.position + cachedCamera.transform.forward * 50f;
     }
 }
